@@ -11,7 +11,7 @@ defmodule Blinker.Server do
 
     %__MODULE__{
       on: false,
-      led: Led.open(opts[:pin] || @pin),
+      led: Led.open(pin(opts[:pin] || @pin)),
       ticker:
         opts[:ticker] ||
           fn ->
@@ -47,4 +47,7 @@ defmodule Blinker.Server do
     Led.off(blinker.led)
     %{blinker | on: true}
   end
+
+  defp pin(id) when is_integer(id), do: {"gpiochip0", id}
+  defp pin(pin), do: pin
 end
