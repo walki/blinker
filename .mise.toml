@@ -1,2 +1,23 @@
 [env]
 # Need to figure out the best way to use MIX_TARGET in mise
+
+[tasks.build]
+description = "Build the rpi0 firmware"
+run = "MIX_TARGET=rpi0 mix firmware"
+
+[tasks.push]
+description = "Push the current rpi0 firmware to connected rpi"
+run = "MIX_TARGET=rpi0 mix upload"
+depends = ["build"]
+
+[tasks.ssh]
+description = "ssh into device"
+run = "ssh nerves.local"
+
+[tasks.wait]
+description = "adds a wait for ssh to be available"
+run = "sleep 10"
+
+[tasks.doit]
+description = "build, push, wait, ssh"
+run = [{ task = "push" }, { task = "wait" }, { task = "ssh" }]
