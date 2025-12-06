@@ -1,6 +1,6 @@
 # Blinker
 
-**TODO: Add description**
+Nerves project from binary clock book
 
 ## Targets
 
