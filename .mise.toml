@@ -16,7 +16,7 @@ run = "ssh nerves.local"
 
 [tasks.wait]
 description = "adds a wait for ssh to be available"
-run = "sleep 10"
+run = "sleep 20"
 
 [tasks.doit]
 description = "build, push, wait, ssh"

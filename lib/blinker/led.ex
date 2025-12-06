@@ -2,7 +2,7 @@ defmodule Blinker.Led do
   alias Circuits.GPIO
 
   def open(pin) do
-    message("Opening #{pin}")
+    message("Opening #{inspect(pin)}")
     {:ok, led} = GPIO.open(pin, :output)
     led
   end
