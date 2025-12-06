@@ -4,7 +4,8 @@ defmodule Blinker.Server do
   defstruct [:led, :on, :ticker, :duration]
   use GenServer
 
-  @pin {"gpiochip0", 26}
+  # @pin {"gpiochip0", 26}
+  @pin 26
 
   def new(opts) do
     duration = opts[:duration] || 1000
@@ -23,8 +24,16 @@ defmodule Blinker.Server do
   end
 
   def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, opts, name: __MODULE__)
+    pin = opts[:pin] || @pin
+    IO.puts("Starting Blinker.Server on pin #{inspect(pin)}")
+    GenServer.start_link(__MODULE__, opts, name: name(pin))
   end
+
+  def stop(pin), do: GenServer.stop(name(pin))
+
+  defp name(26), do: :pin_26
+  defp name(5), do: :pin_5
+  defp name(6), do: :pin_6
 
   def init(opts \\ []) do
     send(self(), :blink)
